@@ -1,13 +1,13 @@
-import useAnimateTextInput from "@/hooks/useAnimateTextInput";
+import useCustomAnimation from "@/hooks/useCustomAnimation";
 import Colors from "@/styles/Colors";
 import Metrics from "@/styles/Metrics";
 import React, { useState } from "react";
 import {
-    Animated,
-    StyleSheet,
-    TextInputProps,
-    TextInput as TextInputRN,
-    View,
+  Animated,
+  StyleSheet,
+  TextInputProps,
+  TextInput as TextInputRN,
+  View,
 } from "react-native";
 
 type CustomTextProps = TextInputProps & {
@@ -18,7 +18,8 @@ const TextInput = (props: CustomTextProps) => {
   const { label, placeholder, style, onBlur, onFocus, errorText, ...rest } =
     props;
   const [isFocused, setIsFocused] = useState(false);
-  const { focusAnim, heightAnim } = useAnimateTextInput(isFocused);
+  const { focusAnim, heightAnim } =
+    useCustomAnimation.useAnimateTextInput(isFocused);
   let color = isFocused ? Colors.text.black : "transparent";
   if (errorText) {
     color = Colors.text.red;

@@ -40,6 +40,17 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginBottom: Metrics.ratio(10),
   },
+
+  newAccountView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  newAccountText:{
+    color: Colors.text.white,
+    fontSize: Metrics.ratio(12),
+    marginTop: Metrics.ratio(15)
+  }
 });
 
 export default styles;

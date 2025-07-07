@@ -1,6 +1,6 @@
 const background = {
   black: "#000",
-  black1: "rgba(0,0,0,0.5)",
+  black1: "rgba(0,0,0,0.72)",
   white: "#fff",
   green: "#02c38e",
 };

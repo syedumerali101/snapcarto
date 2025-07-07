@@ -2,9 +2,9 @@ import Colors from "@/styles/Colors";
 import Metrics from "@/styles/Metrics";
 import React from "react";
 import {
-    StyleSheet,
-    TouchableOpacity,
-    TouchableOpacityProps,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
 } from "react-native";
 import Text from "../Text";
 
