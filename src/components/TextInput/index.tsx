@@ -54,6 +54,7 @@ const TextInput = (props: CustomTextProps) => {
             setIsFocused(true);
             onFocus?.(event);
           }}
+          autoCapitalize="none"
         />
         <Animated.View
           style={[

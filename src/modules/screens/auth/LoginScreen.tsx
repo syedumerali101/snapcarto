@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import Text from "@/components/Text";
 import TextInput from "@/components/TextInput";
 import TouchableText from "@/components/TouchableText";
+import { useAuth } from "@/context/AuthContext";
 import useCustomAnimation from "@/hooks/useCustomAnimation";
 import { BlurView } from "expo-blur";
 import React, { useRef, useState } from "react";
@@ -17,6 +18,7 @@ import Helper from "../../../utils/Helper";
 import styles from "./styles";
 
 const LoginScreen = ({ navigation }) => {
+  const { login } = useAuth();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -35,7 +37,7 @@ const LoginScreen = ({ navigation }) => {
     setCredentials((prev) => ({ ...prev, [key]: value }));
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const emptyKeys = Object.keys(credentials).filter(
       (key) => credentials[key] === ""
     );
@@ -53,6 +55,12 @@ const LoginScreen = ({ navigation }) => {
     if (!Helper.isPasswordValid(credentials.password)) {
       Alert.alert("Incorrect Password");
       return;
+    }
+
+    try {
+      await login(credentials?.email, credentials?.password);
+    } catch (err) {
+      Alert.alert("Login failed", err.message);
     }
   };
 

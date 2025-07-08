@@ -1,3 +1,4 @@
+import { useAuth } from "@/context/AuthContext";
 import LoginScreen from "@/modules/screens/auth/LoginScreen";
 import SignupScreen from "@/modules/screens/auth/SignupScreen";
 import Routes, { AuthStackParams } from "@/utils/Routes";
@@ -11,6 +12,8 @@ enableScreens();
 const Stack = createStackNavigator<AuthStackParams>();
 
 function AuthStack() {
+  const {user} = useAuth();
+  
   return (
     <Stack.Navigator
       initialRouteName={Routes.Login}

@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import Text from "@/components/Text";
 import TextInput from "@/components/TextInput";
 import TouchableText from "@/components/TouchableText";
+import { useAuth } from "@/context/AuthContext";
 import useCustomAnimation from "@/hooks/useCustomAnimation";
 import { BlurView } from "expo-blur";
 import React, { useRef, useState } from "react";
@@ -16,7 +17,8 @@ import {
 import Helper from "../../../utils/Helper";
 import styles from "./styles";
 
-const SignupScreen = ({navigation}) => {
+const SignupScreen = ({ navigation }) => {
+  const { signup } = useAuth();
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -37,9 +39,9 @@ const SignupScreen = ({navigation}) => {
     setCredentials((prev) => ({ ...prev, [key]: value }));
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const emptyKeys = Object.keys(credentials).filter(
-      (key) => credentials[key] === ""
+      (key) => credentials[key as keyof typeof credentials] === ""
     );
 
     if (emptyKeys?.length > 0) {
@@ -47,7 +49,7 @@ const SignupScreen = ({navigation}) => {
       return;
     }
 
-       if (!Helper.isNameValid(credentials.name)) {
+    if (!Helper.isNameValid(credentials.name)) {
       Alert.alert("Name can not have numbers or symbols");
       return;
     }
@@ -60,6 +62,17 @@ const SignupScreen = ({navigation}) => {
     if (!Helper.isPasswordValid(credentials.password)) {
       Alert.alert("Password has to be atleast 6 characters long");
       return;
+    }
+
+    try {
+      await signup(
+        credentials?.name,
+        credentials?.email,
+        credentials?.password
+      );
+      
+    } catch (err) {
+      Alert.alert("Signup failed", err.message);
     }
   };
 
@@ -93,6 +106,7 @@ const SignupScreen = ({navigation}) => {
             onChangeText={(text) => handleChange("email", text)}
             ref={emailRef}
             onSubmitEditing={() => passwordRef.current.focus()}
+            keyboardType="email-address"
           />
           <TextInput
             label="Password"
