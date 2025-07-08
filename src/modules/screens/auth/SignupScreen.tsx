@@ -16,7 +16,7 @@ import {
 import Helper from "../../../utils/Helper";
 import styles from "./styles";
 
-const SignupScreen = () => {
+const SignupScreen = ({navigation}) => {
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -126,7 +126,7 @@ const SignupScreen = () => {
 
           <View style={styles.newAccountView}>
             <Text style={styles.newAccountText}>Already have an account? </Text>
-            <TouchableText label="Log in" />
+            <TouchableText onPress={() => navigation.goBack()} label="Log in" />
           </View>
         </BlurView>
       </View>
