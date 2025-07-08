@@ -109,7 +109,10 @@ const LoginScreen = ({ navigation }) => {
             />
           </View>
 
-          <TouchableText label="Forgot your password?" />
+          <TouchableText
+            onPress={() => Alert.alert("Not a part of this test")}
+            label="Forgot your password?"
+          />
         </BlurView>
       </View>
     </ImageBackground>
