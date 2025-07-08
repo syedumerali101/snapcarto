@@ -7,20 +7,22 @@ import useCustomAnimation from "@/hooks/useCustomAnimation";
 import { BlurView } from "expo-blur";
 import React, { useRef, useState } from "react";
 import {
-  Alert,
-  Animated,
-  ImageBackground,
-  TextInput as TextInputRN,
-  View,
+    Alert,
+    Animated,
+    ImageBackground,
+    TextInput as TextInputRN,
+    View,
 } from "react-native";
 import Helper from "../../../utils/Helper";
 import styles from "./styles";
 
-const LoginScreen = ({ navigation }) => {
+const SignupScreen = () => {
   const [credentials, setCredentials] = useState({
+    name: "",
     email: "",
     password: "",
   });
+  const nameRef = useRef<TextInputRN>(null);
   const emailRef = useRef<TextInputRN>(null);
   const passwordRef = useRef<TextInputRN>(null);
 
@@ -31,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
       credentials
     );
 
-  const handleChange = (key: "email" | "password", value: string) => {
+  const handleChange = (key: "name" | "email" | "password", value: string) => {
     setCredentials((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -64,12 +66,21 @@ const LoginScreen = ({ navigation }) => {
       <View style={styles.mainContainer} />
 
       <View style={styles.mainLoginContainer}>
-        <Text style={styles.loginTextStyle}>Log in</Text>
+        <Text style={styles.loginTextStyle}>Sign up</Text>
 
         <BlurView intensity={20} style={styles.blurContainer}>
           <Text style={styles.tagLineText}>
-            Ready to treat yourself? Log in and let the browsing begin
+            Looks like you don't have an account. Let's create a new account for{" "}
+            {credentials?.name}
           </Text>
+          <TextInput
+            label="Name"
+            placeholder="Enter name"
+            value={credentials.name}
+            onChangeText={(text) => handleChange("name", text)}
+            ref={nameRef}
+            onSubmitEditing={() => emailRef.current.focus()}
+          />
           <TextInput
             label="Email"
             placeholder="Enter email"
@@ -87,6 +98,13 @@ const LoginScreen = ({ navigation }) => {
             onSubmitEditing={onSubmit}
           />
 
+          <View style={styles.termsConditionsView}>
+            <Text style={styles.newAccountText}>
+              By selecting agree and continue below, I agree to
+              <TouchableText label="Terms of Service and Privacy Policy" />
+            </Text>
+          </View>
+
           <Animated.View
             style={{
               opacity: buttonOpacity,
@@ -102,18 +120,13 @@ const LoginScreen = ({ navigation }) => {
           </Animated.View>
 
           <View style={styles.newAccountView}>
-            <Text style={styles.newAccountText}>Don't have an account? </Text>
-            <TouchableText
-              label="Sign up"
-              onPress={() => navigation.navigate("Signup")}
-            />
+            <Text style={styles.newAccountText}>Already have an account? </Text>
+            <TouchableText label="Log in" />
           </View>
-
-          <TouchableText label="Forgot your password?" />
         </BlurView>
       </View>
     </ImageBackground>
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;

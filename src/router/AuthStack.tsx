@@ -1,4 +1,5 @@
 import LoginScreen from "@/modules/screens/auth/LoginScreen";
+import SignupScreen from "@/modules/screens/auth/SignupScreen";
 import Routes, { AuthStackParams } from "@/utils/Routes";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
@@ -25,6 +26,15 @@ function AuthStack() {
         component={LoginScreen}
         options={{
           headerTitle: "Login",
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name={Routes.Signup}
+        component={SignupScreen}
+        options={{
+          headerTitle: "Signup",
           //   headerShown: false,
         }}
       />

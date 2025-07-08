@@ -14,9 +14,9 @@ type CustomTouchableProps = TouchableOpacityProps & {
 };
 
 const TouchableText = (props: CustomTouchableProps) => {
-  const { label } = props;
+  const { label, onPress } = props;
   return (
-    <TouchableOpacity activeOpacity={1} style={styles.btnContainer}>
+    <TouchableOpacity activeOpacity={1} style={styles.btnContainer} onPress={onPress}>
       <Text style={styles.labelStyle}>{label}</Text>
     </TouchableOpacity>
   );

@@ -50,7 +50,12 @@ const styles = StyleSheet.create({
     color: Colors.text.white,
     fontSize: Metrics.ratio(12),
     marginTop: Metrics.ratio(15)
-  }
+  },
+
+   termsConditionsView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 });
 
 export default styles;
