@@ -6,8 +6,12 @@ const isEmailValid = (email: string) => {
 
 const isPasswordValid = (password: string) => password.length >= 6;
 
+const isNameValid = (name: string) => /^[A-Za-z]+$/.test(name);
+
+
 
 export default {
     isEmailValid,
-    isPasswordValid
+    isPasswordValid,
+    isNameValid
 }

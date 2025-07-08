@@ -7,11 +7,11 @@ import useCustomAnimation from "@/hooks/useCustomAnimation";
 import { BlurView } from "expo-blur";
 import React, { useRef, useState } from "react";
 import {
-    Alert,
-    Animated,
-    ImageBackground,
-    TextInput as TextInputRN,
-    View,
+  Alert,
+  Animated,
+  ImageBackground,
+  TextInput as TextInputRN,
+  View,
 } from "react-native";
 import Helper from "../../../utils/Helper";
 import styles from "./styles";
@@ -47,13 +47,18 @@ const SignupScreen = () => {
       return;
     }
 
+       if (!Helper.isNameValid(credentials.name)) {
+      Alert.alert("Name can not have numbers or symbols");
+      return;
+    }
+
     if (!Helper.isEmailValid(credentials.email)) {
       Alert.alert("Incorrect Email Address");
       return;
     }
 
     if (!Helper.isPasswordValid(credentials.password)) {
-      Alert.alert("Incorrect Password");
+      Alert.alert("Password has to be atleast 6 characters long");
       return;
     }
   };
