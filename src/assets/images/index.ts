@@ -1,12 +1,16 @@
-
 //background images
 const authBackground = require("../images/background/authBackground.jpg");
+const model1 = require("../images/background/model1.jpg");
+const model2 = require("../images/background/model2.jpg");
+const model3 = require("../images/background/model3.jpg");
 
 //icons
 const back = require("../images/icons/back.png");
 
-
 export default {
   authBackground,
-  back
+  back,
+  model1,
+  model2,
+  model3,
 };
