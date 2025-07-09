@@ -1,7 +1,15 @@
+import Text from "@/components/Text";
 import type { FollowItem } from "@/modules/screens/home/types";
+import Colors from "@/styles/Colors";
 import Metrics from "@/styles/Metrics";
 import React from "react";
-import { ImageBackground, ImageSourcePropType, StyleSheet } from "react-native";
+import {
+  ImageBackground,
+  ImageSourcePropType,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 type FollowCardProps = {
   item: FollowItem;
@@ -16,7 +24,17 @@ const FollowCard: React.FC<FollowCardProps> = ({ item }) => {
       source={image as ImageSourcePropType}
       style={styles.imageContainer}
       borderRadius={Metrics.ratio(20)}
-    ></ImageBackground>
+    >
+      <View style={styles.detailsView}>
+        <Text style={styles.titleStyle}>{title}</Text>
+        <View style={styles.followBtnContainer}>
+          <Text style={styles.mentionText}>{mention}</Text>
+          <TouchableOpacity activeOpacity={1} style={styles.onFollowBtn}>
+            <Text style={styles.followText}>{follow}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -27,6 +45,46 @@ const styles = StyleSheet.create({
     marginHorizontal: Metrics.ratio(10),
     marginTop: Metrics.ratio(10),
   },
+
+  detailsView: {
+    width: Metrics.screenWidth * 0.65,
+    alignSelf: "center",
+    marginTop: Metrics.screenHeight * 0.5,
+  },
+
+  titleStyle: {
+    color: Colors.text.white,
+    fontSize: Metrics.ratio(20),
+    fontWeight: "bold",
+  },
+
+  followBtnContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  mentionText: {
+    color: Colors.text.white,
+    fontSize: Metrics.ratio(12),
+    fontWeight: "600",
+  },
+
+  onFollowBtn: {
+    borderWidth: 1,
+    borderColor: Colors.text.white,
+    paddingVertical: Metrics.ratio(5),
+    paddingHorizontal: Metrics.ratio(10),
+    borderRadius: Metrics.ratio(20),
+  },
+
+  followText: {
+    color: Colors.text.white,
+    fontSize: Metrics.ratio(12),
+    textTransform: "capitalize",
+    fontWeight: "600",
+  },
+ 
 });
 
 export default FollowCard;
