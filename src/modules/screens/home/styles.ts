@@ -50,7 +50,9 @@ const styles = StyleSheet.create({
 
   flatListStyle:{
     flex: 1,
-    marginTop: Metrics.ratio(30)
+    marginTop: Metrics.ratio(30),
+    width: Metrics.screenWidth,
+    paddingHorizontal: Metrics.ratio(10)
   }
 });
 

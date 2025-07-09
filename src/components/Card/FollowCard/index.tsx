@@ -5,6 +5,7 @@ import Metrics from "@/styles/Metrics";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import {
+  Animated,
   ImageBackground,
   ImageSourcePropType,
   StyleSheet,
@@ -14,42 +15,54 @@ import {
 
 type FollowCardProps = {
   item: FollowItem;
-  index?: number; // Optional, in case you pass index
+  index?: number;
+  translateRotateZ?: Animated.AnimatedInterpolation<string>;
 };
 
-const FollowCard: React.FC<FollowCardProps> = ({ item }) => {
-  const { id, image, title, mention, follow } = item;
+const FollowCard: React.FC<FollowCardProps> = ({ item, translateRotateZ }) => {
+  const { image, title, mention, follow } = item;
 
   return (
-    <ImageBackground
-      source={image as ImageSourcePropType}
-      style={styles.imageContainer}
-      borderRadius={Metrics.ratio(20)}
+    <Animated.View
+      style={[
+        styles.mainViewContainer,
+        {
+          transform: [{ rotateZ: translateRotateZ ?? "0deg" }],
+        },
+      ]}
     >
-      <LinearGradient
-        colors={["transparent", "rgba(0,0,0,0.7)", "black"]}
-        style={styles.bottomGradient}
-        locations={[0, 0.6, 1]}
-      />
-      <View style={styles.detailsView}>
-        <Text style={styles.titleStyle}>{title}</Text>
-        <View style={styles.followBtnContainer}>
-          <Text style={styles.mentionText}>{mention}</Text>
-          <TouchableOpacity activeOpacity={1} style={styles.onFollowBtn}>
-            <Text style={styles.followText}>{follow}</Text>
-          </TouchableOpacity>
+      <ImageBackground
+        source={image as ImageSourcePropType}
+        style={styles.imageContainer}
+        borderRadius={Metrics.ratio(20)}
+      >
+        <LinearGradient
+          colors={["transparent", "rgba(0,0,0,0.7)", "black"]}
+          style={styles.bottomGradient}
+          locations={[0, 0.6, 1]}
+        />
+        <View style={styles.detailsView}>
+          <Text style={styles.titleStyle}>{title}</Text>
+          <View style={styles.followBtnContainer}>
+            <Text style={styles.mentionText}>{mention}</Text>
+            <TouchableOpacity activeOpacity={1} style={styles.onFollowBtn}>
+              <Text style={styles.followText}>{follow}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
+  mainViewContainer: {
+    marginHorizontal: Metrics.ratio(10),
+    marginTop: Metrics.ratio(10),
+  },
   imageContainer: {
     width: Metrics.screenWidth * 0.72,
     height: Metrics.screenHeight * 0.65,
-    marginHorizontal: Metrics.ratio(10),
-    marginTop: Metrics.ratio(10),
   },
 
   detailsView: {
@@ -96,7 +109,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: Metrics.screenHeight * 0.25, // adjust for how much fade you want
+    height: Metrics.screenHeight * 0.25,
     borderBottomLeftRadius: Metrics.ratio(20),
     borderBottomRightRadius: Metrics.ratio(20),
   },
