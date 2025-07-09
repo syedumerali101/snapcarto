@@ -2,6 +2,7 @@ import Text from "@/components/Text";
 import type { FollowItem } from "@/modules/screens/home/types";
 import Colors from "@/styles/Colors";
 import Metrics from "@/styles/Metrics";
+import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import {
   ImageBackground,
@@ -25,6 +26,11 @@ const FollowCard: React.FC<FollowCardProps> = ({ item }) => {
       style={styles.imageContainer}
       borderRadius={Metrics.ratio(20)}
     >
+      <LinearGradient
+        colors={["transparent", "rgba(0,0,0,0.7)", "black"]}
+        style={styles.bottomGradient}
+        locations={[0, 0.6, 1]}
+      />
       <View style={styles.detailsView}>
         <Text style={styles.titleStyle}>{title}</Text>
         <View style={styles.followBtnContainer}>
@@ -84,7 +90,16 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
     fontWeight: "600",
   },
- 
+
+  bottomGradient: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: Metrics.screenHeight * 0.25, // adjust for how much fade you want
+    borderBottomLeftRadius: Metrics.ratio(20),
+    borderBottomRightRadius: Metrics.ratio(20),
+  },
 });
 
 export default FollowCard;
