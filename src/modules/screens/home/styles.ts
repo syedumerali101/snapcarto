@@ -48,11 +48,21 @@ const styles = StyleSheet.create({
     marginTop: Metrics.screenHeight * 0.12,
   },
 
-  flatListStyle:{
+  flatListStyle: {
     flex: 1,
     marginTop: Metrics.ratio(30),
     width: Metrics.screenWidth,
-    paddingHorizontal: Metrics.ratio(10)
+    paddingHorizontal: Metrics.ratio(10),
+  },
+
+  bgImageStyle: {
+    height: Metrics.screenHeight,
+    width: Metrics.screenWidth,
+    position: "absolute",
+  },
+
+  detailsView:{
+    justifyContent: 'center',
   }
 });
 

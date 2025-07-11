@@ -1,4 +1,6 @@
+import { AuthProvider } from "@/context/AuthContext";
 import AppNavigator from "@/router/AppNavigator";
+import { NavigationContainer } from "@react-navigation/native";
 import * as ScreenOrientation from "expo-screen-orientation";
 import React, { useEffect } from "react";
 import { Platform } from "react-native";
@@ -11,5 +13,11 @@ export default function App() {
       );
     }
   }, []);
-  return <AppNavigator />;
+  return (
+    <AuthProvider>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </AuthProvider>
+  );
 }

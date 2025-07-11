@@ -1,16 +1,15 @@
-import { AuthProvider } from "@/context/AuthContext";
-import { NavigationContainer } from "@react-navigation/native";
+import { useAuth } from "@/context/AuthContext";
 import React from "react";
 import AuthStack from "./AuthStack";
+import MainStack from "./MainStack";
 
 const AppNavigator = () => {
-  return (
-    <AuthProvider>
-      <NavigationContainer>
-        <AuthStack />
-      </NavigationContainer>
-    </AuthProvider>
-  );
+  const { user } = useAuth();
+  if (user) {
+    return <MainStack />;
+  } else {
+    return <AuthStack />;
+  }
 };
 
 export default AppNavigator;

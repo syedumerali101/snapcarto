@@ -1,6 +1,5 @@
-import LoginScreen from "@/modules/screens/auth/LoginScreen";
-import SignupScreen from "@/modules/screens/auth/SignupScreen";
-import Routes, { AuthStackParams } from "@/utils/Routes";
+import HomeScreen from "@/modules/screens/home/HomeScreen";
+import Routes, { MainStackParams } from "@/utils/Routes";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { enableScreens } from "react-native-screens";
@@ -8,12 +7,12 @@ import AuthHeader from "./AuthHeader";
 
 enableScreens();
 
-const Stack = createStackNavigator<AuthStackParams>();
+const Stack = createStackNavigator<MainStackParams>();
 
-function AuthStack() {
+function MainStack() {
   return (
     <Stack.Navigator
-      initialRouteName={Routes.Login}
+      initialRouteName={Routes.Home}
       screenOptions={{
         header: ({ scene, navigation, options }) => {
           const title = options.headerTitle ?? scene.route.name;
@@ -22,23 +21,15 @@ function AuthStack() {
       }}
     >
       <Stack.Screen
-        name={Routes.Login}
-        component={LoginScreen}
+        name={Routes.Home}
+        component={HomeScreen}
         options={{
           headerTitle: "Login",
           headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
-        name={Routes.Signup}
-        component={SignupScreen}
-        options={{
-          headerTitle: "Signup",
         }}
       />
     </Stack.Navigator>
   );
 }
 
-export default React.memo(AuthStack);
+export default React.memo(MainStack);
