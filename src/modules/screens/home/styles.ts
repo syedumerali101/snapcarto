@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     color: Colors.text.white,
     fontSize: Metrics.ratio(22),
     fontWeight: "bold",
+    textTransform: 'capitalize'
   },
 
   emailText: {

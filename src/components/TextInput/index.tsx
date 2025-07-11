@@ -1,12 +1,15 @@
+import images from "@/assets/images";
 import useCustomAnimation from "@/hooks/useCustomAnimation";
 import Colors from "@/styles/Colors";
 import Metrics from "@/styles/Metrics";
 import React, { useState } from "react";
 import {
   Animated,
+  Image,
   StyleSheet,
   TextInputProps,
   TextInput as TextInputRN,
+  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -15,15 +18,29 @@ type CustomTextProps = TextInputProps & {
   errorText?: string | null;
 };
 const TextInput = (props: CustomTextProps) => {
-  const { label, placeholder, style, onBlur, onFocus, errorText, ...rest } =
-    props;
+  const {
+    label,
+    placeholder,
+    style,
+    onBlur,
+    onFocus,
+    errorText,
+    secureTextEntry,
+    type,
+    ...rest
+  } = props;
   const [isFocused, setIsFocused] = useState(false);
+  const [passwordHidden, setPasswordHidden] = useState(secureTextEntry);
   const { focusAnim, heightAnim } =
     useCustomAnimation.useAnimateTextInput(isFocused);
   let color = isFocused ? Colors.text.black : "transparent";
   if (errorText) {
     color = Colors.text.red;
   }
+
+  const handlePasswordVisibility = () => {
+    setPasswordHidden(!passwordHidden);
+  };
 
   return (
     <View style={[styles.mainContainer, style]}>
@@ -37,11 +54,13 @@ const TextInput = (props: CustomTextProps) => {
         ]}
       >
         <TextInputRN
+          secureTextEntry={passwordHidden}
           style={[
             styles.input,
             {
               borderColor: color,
               marginTop: isFocused ? 10 : 0,
+              width: secureTextEntry ? Metrics.screenWidth * 0.7 : null,
             },
           ]}
           placeholder={isFocused ? placeholder : label}
@@ -95,6 +114,19 @@ const TextInput = (props: CustomTextProps) => {
             {errorText ? "*" : ""}
           </Animated.Text>
         </Animated.View>
+
+        {type === "password" ? (
+          <TouchableOpacity
+            onPress={handlePasswordVisibility}
+            activeOpacity={1}
+            style={styles.eyeBtn}
+          >
+            <Image
+              style={styles.eyeIconStyle}
+              source={passwordHidden ? images.eyeClosed : images.eye}
+            />
+          </TouchableOpacity>
+        ) : null}
       </Animated.View>
     </View>
   );
@@ -130,6 +162,19 @@ const styles = StyleSheet.create({
     borderColor: "green",
     borderRadius: Metrics.ratio(8),
     backgroundColor: Colors.background.white,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  eyeBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  eyeIconStyle: {
+    resizeMode: "contain",
+    height: Metrics.ratio(14),
+    width: Metrics.ratio(14),
   },
 });
 

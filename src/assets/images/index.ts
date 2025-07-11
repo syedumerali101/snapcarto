@@ -6,6 +6,8 @@ const model3 = require("../images/background/model3.jpg");
 
 //icons
 const back = require("../images/icons/back.png");
+const eye = require("../images/icons/eye.png");
+const eyeClosed = require("../images/icons/eyeClosed.png");
 
 export default {
   authBackground,
@@ -13,4 +15,6 @@ export default {
   model1,
   model2,
   model3,
+  eyeClosed,
+  eye,
 };

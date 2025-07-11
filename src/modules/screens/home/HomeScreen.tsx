@@ -1,15 +1,18 @@
 import FollowCard from "@/components/Card/FollowCard";
 import Text from "@/components/Text";
 import { dummyData } from "@/constants/DummyData";
+import { useAuth } from "@/context/AuthContext";
 import Metrics from "@/styles/Metrics";
+import Helper from "@/utils/Helper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BlurView } from "expo-blur";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   ListRenderItemInfo,
   StyleSheet,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import styles from "./styles";
 import { FollowItem } from "./types";
@@ -17,12 +20,33 @@ import { FollowItem } from "./types";
 const CARD_WIDTH = Metrics.screenWidth * 0.72;
 
 const HomeScreen = () => {
+  const { logout } = useAuth();
+  const [user, setUser] = useState();
   const [activeSlide, setActiveSlide] = useState<FollowItem | null>(null);
   const [prevSlide, setPrevSlide] = useState<FollowItem | null>(null);
 
   const scrollX = useRef(new Animated.Value(0)).current;
-
   const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const store = async () => {
+      try {
+        const getUser = await AsyncStorage.getItem("LOGGED_USER");
+
+        if (getUser) {
+          setUser(JSON.parse(getUser));
+        }
+      } catch (err) {
+        Helper.showToast(err.message);
+      }
+    };
+    store();
+  }, []);
+
+  const handleLogout = async () => {
+    await logout();
+  };
+
   const onViewRef = useRef(({ viewableItems }) => {
     if (viewableItems?.length > 0) {
       const centeredItem = viewableItems[0]?.item;
@@ -91,10 +115,14 @@ const HomeScreen = () => {
 
       <View style={styles.headerView}>
         <View style={styles.detailsView}>
-          <Text style={styles.nameText}>John Doe</Text>
-          <Text style={styles.emailText}>john@test.com</Text>
+          <Text style={styles.nameText}>{user?.name}</Text>
+          <Text style={styles.emailText}>{user?.email}</Text>
         </View>
-        <TouchableOpacity activeOpacity={1} style={styles.emailView}>
+        <TouchableOpacity
+          onPress={handleLogout}
+          activeOpacity={1}
+          style={styles.emailView}
+        >
           <Text style={styles.emailText}>Logout</Text>
         </TouchableOpacity>
       </View>

@@ -8,7 +8,6 @@ import useCustomAnimation from "@/hooks/useCustomAnimation";
 import { BlurView } from "expo-blur";
 import React, { useRef, useState } from "react";
 import {
-  Alert,
   Animated,
   ImageBackground,
   TextInput as TextInputRN,
@@ -43,24 +42,14 @@ const LoginScreen = ({ navigation }) => {
     );
 
     if (emptyKeys?.length > 0) {
-      Alert.alert(`${emptyKeys?.[0]} is missing`);
-      return;
-    }
-
-    if (!Helper.isEmailValid(credentials.email)) {
-      Alert.alert("Incorrect Email Address");
-      return;
-    }
-
-    if (!Helper.isPasswordValid(credentials.password)) {
-      Alert.alert("Incorrect Password");
+      Helper.showToast(`${emptyKeys?.[0]} is missing`);
       return;
     }
 
     try {
       await login(credentials?.email, credentials?.password);
     } catch (err) {
-      Alert.alert("Login failed", err.message);
+      Helper.showToast(err.message);
     }
   };
 
@@ -93,6 +82,8 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={(text) => handleChange("password", text)}
             ref={passwordRef}
             onSubmitEditing={onSubmit}
+            secureTextEntry={true}
+            type="password"
           />
 
           <Animated.View
@@ -118,7 +109,7 @@ const LoginScreen = ({ navigation }) => {
           </View>
 
           <TouchableText
-            onPress={() => Alert.alert("Not a part of this test")}
+            onPress={() => Helper.showToast("Not a part of this test")}
             label="Forgot your password?"
           />
         </BlurView>

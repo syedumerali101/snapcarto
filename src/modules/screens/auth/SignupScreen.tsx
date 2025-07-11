@@ -8,7 +8,6 @@ import useCustomAnimation from "@/hooks/useCustomAnimation";
 import { BlurView } from "expo-blur";
 import React, { useRef, useState } from "react";
 import {
-  Alert,
   Animated,
   ImageBackground,
   TextInput as TextInputRN,
@@ -45,22 +44,7 @@ const SignupScreen = ({ navigation }) => {
     );
 
     if (emptyKeys?.length > 0) {
-      Alert.alert(`${emptyKeys?.[0]} is missing`);
-      return;
-    }
-
-    if (!Helper.isNameValid(credentials.name)) {
-      Alert.alert("Name can not have numbers or symbols");
-      return;
-    }
-
-    if (!Helper.isEmailValid(credentials.email)) {
-      Alert.alert("Incorrect Email Address");
-      return;
-    }
-
-    if (!Helper.isPasswordValid(credentials.password)) {
-      Alert.alert("Password has to be atleast 6 characters long");
+      Helper.showToast(`${emptyKeys?.[0]} is missing`);
       return;
     }
 
@@ -68,11 +52,11 @@ const SignupScreen = ({ navigation }) => {
       await signup(
         credentials?.name,
         credentials?.email,
-        credentials?.password
+        credentials?.password,
+        navigation
       );
-      
     } catch (err) {
-      Alert.alert("Signup failed", err.message);
+      Helper.showToast(err.message);
     }
   };
 
