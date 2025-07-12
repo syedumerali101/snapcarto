@@ -25,4 +25,28 @@ export const dummyData: FollowItem[] = [
     mention: "@maya.daryen",
     follow: "follow",
   },
+
+    {
+    id: 4,
+    image: images.model4,
+    title: "Body Language with maya daryen",
+    mention: "@maya.daryen",
+    follow: "follow",
+  },
+
+    {
+    id: 5,
+    image: images.model5,
+    title: "Body Language with maya daryen",
+    mention: "@maya.daryen",
+    follow: "follow",
+  },
+
+    {
+    id: 6,
+    image: images.model6,
+    title: "Body Language with maya daryen",
+    mention: "@maya.daryen",
+    follow: "follow",
+  },
 ];

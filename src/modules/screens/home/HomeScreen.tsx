@@ -8,11 +8,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BlurView } from "expo-blur";
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Alert,
   Animated,
   ListRenderItemInfo,
   StyleSheet,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import styles from "./styles";
 import { FollowItem } from "./types";
@@ -27,6 +28,7 @@ const HomeScreen = () => {
 
   const scrollX = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scale = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const store = async () => {
@@ -44,7 +46,24 @@ const HomeScreen = () => {
   }, []);
 
   const handleLogout = async () => {
-    await logout();
+    Alert.alert(
+      "Logout",
+      "Are you sure you want to logout?",
+      [
+        {
+          text: "No",
+          onPress: () => console.log("Logout cancelled"),
+          style: "cancel",
+        },
+
+        {
+          text: "Yes",
+          onPress: async () => await logout(),
+          style: "destructive",
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   const onViewRef = useRef(({ viewableItems }) => {
@@ -64,6 +83,16 @@ const HomeScreen = () => {
       }
     }
   });
+
+  useEffect(() => {
+    scale.setValue(0.7);
+    Animated.spring(scale, {
+      toValue: 1,
+      friction: 10,
+      tension: 100,
+      useNativeDriver: false,
+    }).start();
+  }, [activeSlide]);
 
   const viewConfigRef = useRef({
     itemVisiblePercentThreshold: 60,
@@ -98,7 +127,12 @@ const HomeScreen = () => {
         {prevSlide && (
           <Animated.Image
             source={prevSlide.image}
-            style={styles.bgImageStyle}
+            style={[
+              styles.bgImageStyle,
+              {
+                transform: [{ scale: prevScale }],
+              },
+            ]}
             resizeMode="cover"
           />
         )}
@@ -106,7 +140,16 @@ const HomeScreen = () => {
         {activeSlide && (
           <Animated.Image
             source={activeSlide.image}
-            style={[styles.bgImageStyle, { opacity: fadeAnim }]}
+            style={[
+              styles.bgImageStyle,
+              {
+                transform: [
+                  {
+                    scale,
+                  },
+                ],
+              },
+            ]}
             resizeMode="cover"
           />
         )}

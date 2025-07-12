@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
 
   blurContainer: {
     flex: 1,
+    backgroundColor: Colors.background.green,
   },
 
   overlay: {
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     color: Colors.text.white,
     fontSize: Metrics.ratio(22),
     fontWeight: "bold",
-    textTransform: 'capitalize'
+    textTransform: "capitalize",
   },
 
   emailText: {
@@ -62,9 +63,9 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
 
-  detailsView:{
-    justifyContent: 'center',
-  }
+  detailsView: {
+    justifyContent: "center",
+  },
 });
 
 export default styles;
