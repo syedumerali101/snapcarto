@@ -29,8 +29,9 @@ const SignupScreen = ({ navigation }) => {
 
   const { buttonOpacity, buttonTranslateY, heightAnim } =
     useCustomAnimation.useAnimateButton(
-      Helper.isEmailValid(credentials?.email) &&
-        Helper.isPasswordValid(credentials?.password),
+      credentials?.name !== "" &&
+        credentials?.email !== "" &&
+        credentials?.password !== "",
       credentials
     );
 
@@ -82,6 +83,7 @@ const SignupScreen = ({ navigation }) => {
             onChangeText={(text) => handleChange("name", text)}
             ref={nameRef}
             onSubmitEditing={() => emailRef.current.focus()}
+            autoFocus={true}
           />
           <TextInput
             label="Email"
@@ -99,6 +101,8 @@ const SignupScreen = ({ navigation }) => {
             onChangeText={(text) => handleChange("password", text)}
             ref={passwordRef}
             onSubmitEditing={onSubmit}
+            secureTextEntry={true}
+            type="password"
           />
 
           <View style={styles.termsConditionsView}>

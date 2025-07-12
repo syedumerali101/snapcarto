@@ -27,8 +27,7 @@ const LoginScreen = ({ navigation }) => {
 
   const { buttonOpacity, buttonTranslateY, heightAnim } =
     useCustomAnimation.useAnimateButton(
-      Helper.isEmailValid(credentials?.email) &&
-        Helper.isPasswordValid(credentials?.password),
+      credentials?.email !== "" && credentials?.password !== "",
       credentials
     );
 
@@ -74,6 +73,7 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={(text) => handleChange("email", text)}
             ref={emailRef}
             onSubmitEditing={() => passwordRef.current.focus()}
+            autoFocus={true}
           />
           <TextInput
             label="Password"

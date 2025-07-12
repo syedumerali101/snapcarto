@@ -58,11 +58,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (email: string, password: string) => {
     const findUser = allUsers?.find((user) => user.email === email);
     if (!Helper.isEmailValid(email)) {
-      Helper.showToast("Incorrect Email Address");
+      Helper.showToast("Incorrect Email Format");
       return;
     }
     if (!Helper.isPasswordValid(password)) {
-      Helper.showToast("Incorrect Password");
+      Helper.showToast("Incorrect credentials");
       return;
     }
     if (findUser) {
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     if (!Helper.isEmailValid(email)) {
-      Helper.showToast("Incorrect Email Address");
+      Helper.showToast("Incorrect Email Address Format");
       return;
     }
 
