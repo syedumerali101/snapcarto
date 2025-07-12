@@ -1,50 +1,62 @@
-# Welcome to your Expo app 👋
+Senior React Native Developer Assignment
+Thank you for reviewing my assignment for the Senior React Native Developer position at Kloudius.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project was built using Expo and demonstrates my proficiency in building scalable, maintainable, and high-quality mobile applications using React Native and this project is named as Snapcarto as I intended to make it a ecommerce based app.
 
-## Get started
+🚀 Getting Started
 
-1. Install dependencies
+1. Clone the Repository
 
-   ```bash
-   npm install
-   ```
+2. Install Dependencies
+      npm install
 
-2. Start the app
+      and if you are using yarn
 
-   ```bash
-   npx expo start
-   ```
+      yarn install or yarn
 
-In the output, you'll find options to open the app in a
+3. Run the Project
+      if you are using iOS , run yarn ios
+      if you are using android, run yarn android
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Demo & Screenshots
+   A video walkthrough of the app flow is included in the repository (under /demo)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+   Screenshots of various screens are located in the /assets/screenshots folder
 
-## Get a fresh project
+Features Implemented
+- Login Functionality 
+      User needs email and password to login. Validations for valid email and password at least 6 letters long are set.
 
-When you're ready, run:
+      Smooth animations are added in Text Inputs, Buttons. Continue buttons show up only when data is filled into the Text Input fields.
 
-```bash
-npm run reset-project
-```
+- Toggle Password
+      Toggle Password functionality is set using the icon which follows a smooth animation of icon changing. User can see the password by toggling the eye button. It is used in the signup functionality as well.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- Signup Functionality
+     User needs name, email and password to signup. Validations for valid name contains no numbers or characters, formatted email and password at least 6 letters long are set.
 
-## Learn more
+     Same kind of animation of login is adopted in signup as well.
 
-To learn more about developing your project with Expo, look at the following resources:
+- Auth Context is used for setting up login, signup, logout and user data functionality in a proper   separate file.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Aysnc Storage is used to save logged in user and all registered users to filter the user when the user is trying to log in.
 
-## Join the community
+- Home Functionality
+      Home screen shows email of the user along with the name of it. A logout button is set as well which will open up a popup to confirm if the user wants to log out.
 
-Join our community of developers creating universal apps.
+      A smooth horizontal list is added to show user some on going shopping articles which follows a very smooth animation, scalling, transition between items. When items are moving, the background is having the image on its background using the item's image.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Animation in the screen is followed by Animated from react native. Separate hook of it is set to use the functions anywhere in the app.
+
+- Separate components are made, same helpers, separate hooks because of the readibility of the code in the app.
+
+- React navigation is used for navigating between screens.
+
+Additional Information
+- I will be writing my own backend for this app which I will push to the other branch. Also, I will be working on this app's frontend as well to make it best.
+
+
+About Me
+I’ve developed over 30+ mobile applications in my career, combining thoughtful UI/UX with robust technical implementations. This assignment reflects my attention to detail, passion for clean code, and commitment to building high-quality apps that users love.
+
+My LinkedIn Profile: https://www.linkedin.com/in/syed-umer-ali-software-engineer/
