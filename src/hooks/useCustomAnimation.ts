@@ -54,10 +54,41 @@ const useAnimateButton = (isValid: boolean, credentials: object) => {
     ]).start();
   }, [credentials]);
 
-  return {buttonOpacity, buttonTranslateY, heightAnim}
+  return { buttonOpacity, buttonTranslateY, heightAnim };
+};
+
+const useChangeWithScaleRotate = (passwordHidden: boolean) => {
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+  const scale = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    Animated.timing(rotateAnim, {
+      toValue: passwordHidden ? 0 : 1,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+  }, [passwordHidden]);
+
+  useEffect(() => {
+    scale.setValue(0.7);
+    Animated.spring(scale, {
+      toValue: 1,
+      friction: 4,
+      tension: 100,
+      useNativeDriver: true,
+    }).start();
+  }, [passwordHidden]);
+
+  const rotateY = rotateAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "180deg"],
+  });
+
+  return { rotateY, scale };
 };
 
 export default {
   useAnimateTextInput,
   useAnimateButton,
+  useChangeWithScaleRotate,
 };

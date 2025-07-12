@@ -5,7 +5,6 @@ import Metrics from "@/styles/Metrics";
 import React, { useState } from "react";
 import {
   Animated,
-  Image,
   StyleSheet,
   TextInputProps,
   TextInput as TextInputRN,
@@ -33,6 +32,8 @@ const TextInput = (props: CustomTextProps) => {
   const [passwordHidden, setPasswordHidden] = useState(secureTextEntry);
   const { focusAnim, heightAnim } =
     useCustomAnimation.useAnimateTextInput(isFocused);
+  const { rotateY, scale } =
+    useCustomAnimation.useChangeWithScaleRotate(passwordHidden);
   let color = isFocused ? Colors.text.black : "transparent";
   if (errorText) {
     color = Colors.text.red;
@@ -121,8 +122,20 @@ const TextInput = (props: CustomTextProps) => {
             activeOpacity={1}
             style={styles.eyeBtn}
           >
-            <Image
-              style={styles.eyeIconStyle}
+            <Animated.Image
+              style={[
+                styles.eyeIconStyle,
+                {
+                  transform: [
+                    {
+                      scale,
+                    },
+                    {
+                      rotateY,
+                    },
+                  ],
+                },
+              ]}
               source={passwordHidden ? images.eyeClosed : images.eye}
             />
           </TouchableOpacity>
