@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
   input: {
     fontSize: Metrics.ratio(12),
     zIndex: 100000,
+    flex: 1
   },
 
   label: {
