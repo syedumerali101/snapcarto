@@ -2,6 +2,7 @@ import images from "@/assets/images";
 import {
   ImageBackground,
   ImageBackgroundProps,
+  ScrollView,
   StyleSheet,
 } from "react-native";
 
@@ -15,7 +16,13 @@ const BackgroundWrapper = (props: CustomImageBackgroundProps) => {
       style={styles.backgroundContainer}
       {...rest}
     >
-      {children}
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flexGrow: 1 }}
+        automaticallyAdjustKeyboardInsets={true}
+      >
+        {children}
+      </ScrollView>
     </ImageBackground>
   );
 };
@@ -23,6 +30,13 @@ const BackgroundWrapper = (props: CustomImageBackgroundProps) => {
 const styles = StyleSheet.create({
   backgroundContainer: {
     flex: 1,
+  },
+
+  flex: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
   },
 });
 
