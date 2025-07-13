@@ -102,11 +102,18 @@ const HomeScreen = () => {
       extrapolate: "clamp",
     });
 
+    const imageScale = scrollX.interpolate({
+      inputRange,
+      outputRange: [1, 1.2, 1],
+      extrapolate: "clamp",
+    });
+
     return (
       <FollowCard
         item={item}
         index={index}
         translateRotateZ={translateRotateZ}
+        imageScale={imageScale}
       />
     );
   };

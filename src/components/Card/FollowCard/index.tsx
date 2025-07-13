@@ -6,7 +6,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import {
   Animated,
-  ImageBackground,
   ImageSourcePropType,
   StyleSheet,
   TouchableOpacity,
@@ -15,12 +14,18 @@ import {
 
 type FollowCardProps = {
   item: FollowItem;
-  index?: number;
+  index: number;
+  scrollX: Animated.Value;
   translateRotateZ?: Animated.AnimatedInterpolation<string>;
 };
 
-const FollowCard: React.FC<FollowCardProps> = ({ item, translateRotateZ }) => {
+const FollowCard: React.FC<FollowCardProps> = ({
+  item,
+  translateRotateZ,
+  imageScale
+}) => {
   const { image, title, mention, follow } = item;
+
 
   return (
     <Animated.View
@@ -31,11 +36,12 @@ const FollowCard: React.FC<FollowCardProps> = ({ item, translateRotateZ }) => {
         },
       ]}
     >
-      <ImageBackground
-        source={image as ImageSourcePropType}
-        style={styles.imageContainer}
-        borderRadius={Metrics.ratio(20)}
-      >
+      <View style={styles.imageWrapper}>
+        <Animated.Image
+          source={image as ImageSourcePropType}
+          style={[styles.image, { transform: [{ scale: imageScale }] }]}
+          resizeMode="cover"
+        />
         <LinearGradient
           colors={["transparent", "rgba(0,0,0,0.7)", "black"]}
           style={styles.bottomGradient}
@@ -50,7 +56,7 @@ const FollowCard: React.FC<FollowCardProps> = ({ item, translateRotateZ }) => {
             </TouchableOpacity>
           </View>
         </View>
-      </ImageBackground>
+      </View>
     </Animated.View>
   );
 };
@@ -60,35 +66,41 @@ const styles = StyleSheet.create({
     marginHorizontal: Metrics.ratio(10),
     marginTop: Metrics.ratio(10),
   },
-  imageContainer: {
+  imageWrapper: {
+    borderRadius: Metrics.ratio(20),
+    overflow: "hidden",
     width: Metrics.screenWidth * 0.72,
     height: Metrics.screenHeight * 0.65,
   },
-
-  detailsView: {
-    width: Metrics.screenWidth * 0.65,
-    alignSelf: "center",
-    marginTop: Metrics.screenHeight * 0.5,
+  image: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    top: 0,
+    left: 0,
   },
-
+  detailsView: {
+    position: "absolute",
+    bottom: Metrics.screenHeight * 0.05,
+    paddingHorizontal: Metrics.ratio(15),
+    width: "100%",
+  },
   titleStyle: {
     color: Colors.text.white,
     fontSize: Metrics.ratio(20),
     fontWeight: "bold",
   },
-
   followBtnContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginTop: Metrics.ratio(5),
   },
-
   mentionText: {
     color: Colors.text.white,
     fontSize: Metrics.ratio(12),
     fontWeight: "600",
   },
-
   onFollowBtn: {
     borderWidth: 1,
     borderColor: Colors.text.white,
@@ -96,22 +108,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: Metrics.ratio(10),
     borderRadius: Metrics.ratio(20),
   },
-
   followText: {
     color: Colors.text.white,
     fontSize: Metrics.ratio(12),
     textTransform: "capitalize",
     fontWeight: "600",
   },
-
   bottomGradient: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
     height: Metrics.screenHeight * 0.25,
-    borderBottomLeftRadius: Metrics.ratio(20),
-    borderBottomRightRadius: Metrics.ratio(20),
   },
 });
 
