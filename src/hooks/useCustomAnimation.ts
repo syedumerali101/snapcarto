@@ -57,27 +57,27 @@ const useAnimateButton = (isValid: boolean, credentials: object) => {
   return { buttonOpacity, buttonTranslateY, heightAnim };
 };
 
-const useChangeWithScaleRotate = (passwordHidden: boolean) => {
+const useChangeWithScaleRotate = (value: any, friction: Number) => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const scale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     Animated.timing(rotateAnim, {
-      toValue: passwordHidden ? 0 : 1,
+      toValue: value ? 0 : 1,
       duration: 250,
       useNativeDriver: true,
     }).start();
-  }, [passwordHidden]);
+  }, [value]);
 
   useEffect(() => {
     scale.setValue(0.7);
     Animated.spring(scale, {
       toValue: 1,
-      friction: 4,
+      friction: friction ? friction : 4,
       tension: 100,
       useNativeDriver: true,
     }).start();
-  }, [passwordHidden]);
+  }, [value]);
 
   const rotateY = rotateAnim.interpolate({
     inputRange: [0, 1],

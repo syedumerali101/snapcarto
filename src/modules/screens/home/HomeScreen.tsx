@@ -2,6 +2,7 @@ import FollowCard from "@/components/Card/FollowCard";
 import Text from "@/components/Text";
 import { dummyData } from "@/constants/DummyData";
 import { useAuth } from "@/context/AuthContext";
+import useCustomAnimation from "@/hooks/useCustomAnimation";
 import Metrics from "@/styles/Metrics";
 import Helper from "@/utils/Helper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -24,11 +25,9 @@ const HomeScreen = () => {
   const { logout } = useAuth();
   const [user, setUser] = useState();
   const [activeSlide, setActiveSlide] = useState<FollowItem | null>(null);
-  const [prevSlide, setPrevSlide] = useState<FollowItem | null>(null);
-
   const scrollX = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const scale = useRef(new Animated.Value(0)).current;
+  const { scale } = useCustomAnimation.useChangeWithScaleRotate(activeSlide, 10);
 
   useEffect(() => {
     const store = async () => {
@@ -70,29 +69,16 @@ const HomeScreen = () => {
     if (viewableItems?.length > 0) {
       const centeredItem = viewableItems[0]?.item;
       if (centeredItem?.id !== activeSlide?.id) {
-        setPrevSlide(activeSlide);
         setActiveSlide(centeredItem);
         fadeAnim.setValue(0);
         Animated.timing(fadeAnim, {
           toValue: 1,
           duration: 400,
           useNativeDriver: false,
-        }).start(() => {
-          setPrevSlide(null);
-        });
+        }).start();
       }
     }
   });
-
-  useEffect(() => {
-    scale.setValue(0.7);
-    Animated.spring(scale, {
-      toValue: 1,
-      friction: 10,
-      tension: 100,
-      useNativeDriver: false,
-    }).start();
-  }, [activeSlide]);
 
   const viewConfigRef = useRef({
     itemVisiblePercentThreshold: 60,
@@ -124,19 +110,6 @@ const HomeScreen = () => {
   return (
     <BlurView intensity={20} style={styles.blurContainer}>
       <View style={StyleSheet.absoluteFill}>
-        {prevSlide && (
-          <Animated.Image
-            source={prevSlide.image}
-            style={[
-              styles.bgImageStyle,
-              {
-                transform: [{ scale: prevScale }],
-              },
-            ]}
-            resizeMode="cover"
-          />
-        )}
-
         {activeSlide && (
           <Animated.Image
             source={activeSlide.image}
