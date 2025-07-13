@@ -4,7 +4,7 @@ const background = {
   black2: "rgba(0,0,0,0.6)",
   white: "#fff",
   green: "#02c38e",
-  green2: "rgba(0,20,0,0.6)"
+  green2: "rgba(0,50,0,0.6)"
 };
 
 const text = {

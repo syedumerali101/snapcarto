@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
 
   blurContainer: {
     flex: 1,
-    backgroundColor: Colors.background.green,
+    backgroundColor: Colors.background.green2,
   },
 
   overlay: {

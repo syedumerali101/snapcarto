@@ -27,7 +27,11 @@ const HomeScreen = () => {
   const [activeSlide, setActiveSlide] = useState<FollowItem | null>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const { scale } = useCustomAnimation.useChangeWithScaleRotate(activeSlide, 10);
+  const flatListRef = useRef(null);
+  const { scale } = useCustomAnimation.useChangeWithScaleRotate(
+    activeSlide,
+    10
+  );
 
   useEffect(() => {
     const store = async () => {
@@ -73,8 +77,8 @@ const HomeScreen = () => {
         fadeAnim.setValue(0);
         Animated.timing(fadeAnim, {
           toValue: 1,
-          duration: 400,
-          useNativeDriver: false,
+          duration: 500,
+          useNativeDriver: true,
         }).start();
       }
     }
@@ -116,6 +120,7 @@ const HomeScreen = () => {
             style={[
               styles.bgImageStyle,
               {
+                opacity: fadeAnim,
                 transform: [
                   {
                     scale,
@@ -144,6 +149,7 @@ const HomeScreen = () => {
       </View>
 
       <Animated.FlatList
+        ref={flatListRef}
         style={styles.flatListStyle}
         data={dummyData}
         renderItem={renderItem}
