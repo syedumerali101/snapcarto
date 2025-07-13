@@ -1,4 +1,4 @@
-import images from "@/assets/images";
+import BackgroundWrapper from "@/components/BackgroundWrapper";
 import Button from "@/components/Button";
 import Text from "@/components/Text";
 import TextInput from "@/components/TextInput";
@@ -7,12 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import useCustomAnimation from "@/hooks/useCustomAnimation";
 import { BlurView } from "expo-blur";
 import React, { useRef, useState } from "react";
-import {
-  Animated,
-  ImageBackground,
-  TextInput as TextInputRN,
-  View,
-} from "react-native";
+import { Animated, TextInput as TextInputRN, View } from "react-native";
 import Helper from "../../../utils/Helper";
 import styles from "./styles";
 
@@ -62,10 +57,7 @@ const SignupScreen = ({ navigation }) => {
   };
 
   return (
-    <ImageBackground
-      source={images.authBackground}
-      style={styles.backgroundContainer}
-    >
+    <BackgroundWrapper>
       <View style={styles.mainContainer} />
 
       <View style={styles.mainLoginContainer}>
@@ -132,7 +124,7 @@ const SignupScreen = ({ navigation }) => {
           </View>
         </BlurView>
       </View>
-    </ImageBackground>
+    </BackgroundWrapper>
   );
 };
 
