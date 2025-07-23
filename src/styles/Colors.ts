@@ -10,6 +10,7 @@ const background = {
 
 const text = {
   white: "#fff",
+  white2: 'rgba(255, 255, 255, 0.7)',
   black: "#000",
   red: "#B00020",
   green: "#02c38e",

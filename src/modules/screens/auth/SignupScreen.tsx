@@ -1,5 +1,6 @@
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 import Button from "@/components/Button";
+import CountryCodePicker from "@/components/Pickers/CountryCodePicker";
 import Text from "@/components/Text";
 import TextInput from "@/components/TextInput";
 import TouchableText from "@/components/TouchableText";
@@ -18,6 +19,7 @@ const SignupScreen = ({ navigation }) => {
     email: "",
     password: "",
   });
+  const [showCountryPicker, setShowCountryPicker] = useState(false);
   const nameRef = useRef<TextInputRN>(null);
   const emailRef = useRef<TextInputRN>(null);
   const passwordRef = useRef<TextInputRN>(null);
@@ -100,7 +102,10 @@ const SignupScreen = ({ navigation }) => {
           <View style={styles.termsConditionsView}>
             <Text style={styles.newAccountText}>
               By selecting agree and continue below, I agree to
-              <TouchableText label="Terms of Service and Privacy Policy" />
+              <TouchableText
+                onPress={() => setShowCountryPicker(!showCountryPicker)}
+                label="Terms of Service and Privacy Policy"
+              />
             </Text>
           </View>
 
@@ -124,6 +129,11 @@ const SignupScreen = ({ navigation }) => {
           </View>
         </BlurView>
       </View>
+
+      <CountryCodePicker
+        visible={showCountryPicker}
+        setShowCountryPicker={setShowCountryPicker}
+      />
     </BackgroundWrapper>
   );
 };

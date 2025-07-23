@@ -12,6 +12,8 @@ const model6 = require("../images/background/model6.jpg");
 const back = require("../images/icons/back.png");
 const eye = require("../images/icons/eye.png");
 const eyeClosed = require("../images/icons/eyeClosed.png");
+const search = require("../images/icons/search.png");
+
 
 export default {
   authBackground,
@@ -24,4 +26,5 @@ export default {
   model6,
   eyeClosed,
   eye,
+  search
 };
