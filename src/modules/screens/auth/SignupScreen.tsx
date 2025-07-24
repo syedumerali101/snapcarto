@@ -16,11 +16,13 @@ const SignupScreen = ({ navigation }) => {
   const { signup } = useAuth();
   const [credentials, setCredentials] = useState({
     name: "",
+    phone: "",
     email: "",
     password: "",
   });
   const [showCountryPicker, setShowCountryPicker] = useState(false);
   const nameRef = useRef<TextInputRN>(null);
+  const phoneRef = useRef<TextInputRN>(null);
   const emailRef = useRef<TextInputRN>(null);
   const passwordRef = useRef<TextInputRN>(null);
 
@@ -32,7 +34,7 @@ const SignupScreen = ({ navigation }) => {
       credentials
     );
 
-  const handleChange = (key: "name" | "email" | "password", value: string) => {
+  const handleChange = (key: "name" | "email" | "password" | "phone", value: string) => {
     setCredentials((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -76,8 +78,18 @@ const SignupScreen = ({ navigation }) => {
             value={credentials.name}
             onChangeText={(text) => handleChange("name", text)}
             ref={nameRef}
-            onSubmitEditing={() => emailRef.current.focus()}
+            onSubmitEditing={() => phoneRef.current.focus()}
             autoFocus={true}
+          />
+          <TextInput
+            label="Phone"
+            placeholder="Enter Phone Number"
+            value={credentials.phone}
+            onChangeText={(text) => handleChange("phone", text)}
+            ref={phoneRef}
+            onSubmitEditing={() => emailRef.current?.focus()}
+            keyboardType="number-pad"
+            type="phone"
           />
           <TextInput
             label="Email"
@@ -133,7 +145,7 @@ const SignupScreen = ({ navigation }) => {
       <CountryCodePicker
         visible={showCountryPicker}
         setShowCountryPicker={setShowCountryPicker}
-        mode='list'
+        mode="list"
       />
     </BackgroundWrapper>
   );

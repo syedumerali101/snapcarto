@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 
   mainLoginContainer: {
     paddingHorizontal: Metrics.screenWidth * 0.03,
-    marginTop: Metrics.screenHeight * 0.3,
+    marginTop: Metrics.screenHeight * 0.25,
   },
 
   loginTextStyle: {

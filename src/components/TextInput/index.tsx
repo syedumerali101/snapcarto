@@ -2,7 +2,12 @@ import images from "@/assets/images";
 import useCustomAnimation from "@/hooks/useCustomAnimation";
 import Colors from "@/styles/Colors";
 import Metrics from "@/styles/Metrics";
-import React, { useState } from "react";
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import {
   Animated,
   StyleSheet,
@@ -15,8 +20,10 @@ import {
 type CustomTextProps = TextInputProps & {
   label?: string;
   errorText?: string | null;
+  type?: "password" | "phone" | string;
 };
-const TextInput = (props: CustomTextProps) => {
+
+const TextInput = forwardRef<TextInputRN, CustomTextProps>((props, ref) => {
   const {
     label,
     placeholder,
@@ -28,16 +35,20 @@ const TextInput = (props: CustomTextProps) => {
     type,
     ...rest
   } = props;
+
   const [isFocused, setIsFocused] = useState(false);
   const [passwordHidden, setPasswordHidden] = useState(secureTextEntry);
+  const inputRef = useRef<TextInputRN>(null);
+
+  useImperativeHandle(ref, () => inputRef.current as TextInputRN);
+
   const { focusAnim, heightAnim } =
     useCustomAnimation.useAnimateTextInput(isFocused);
   const { rotateY, scale } =
     useCustomAnimation.useChangeWithScaleRotate(passwordHidden);
+
   let color = isFocused ? Colors.text.black : "transparent";
-  if (errorText) {
-    color = Colors.text.red;
-  }
+  if (errorText) color = Colors.text.red;
 
   const handlePasswordVisibility = () => {
     setPasswordHidden(!passwordHidden);
@@ -55,13 +66,14 @@ const TextInput = (props: CustomTextProps) => {
         ]}
       >
         <TextInputRN
+          ref={inputRef}
           secureTextEntry={passwordHidden}
           style={[
             styles.input,
             {
               borderColor: color,
               marginTop: isFocused ? 10 : 0,
-              width: secureTextEntry ? Metrics.screenWidth * 0.7 : null,
+              width: secureTextEntry ? Metrics.screenWidth * 0.7 : undefined,
             },
           ]}
           placeholder={isFocused ? placeholder : label}
@@ -143,7 +155,7 @@ const TextInput = (props: CustomTextProps) => {
       </Animated.View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -152,13 +164,11 @@ const styles = StyleSheet.create({
   input: {
     fontSize: Metrics.ratio(12),
     zIndex: 100000,
-    flex: 1
+    flex: 1,
   },
-
   label: {
     fontSize: Metrics.ratio(12),
   },
-
   labelContainer: {
     position: "absolute",
     top: -Metrics.ratio(1),
@@ -170,7 +180,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#B00020",
   },
-
   inputLabelMainView: {
     padding: Metrics.ratio(15),
     borderColor: "green",
@@ -179,12 +188,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-
   eyeBtn: {
     justifyContent: "center",
     alignItems: "center",
   },
-
   eyeIconStyle: {
     resizeMode: "contain",
     height: Metrics.ratio(14),

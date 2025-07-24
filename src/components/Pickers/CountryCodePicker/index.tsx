@@ -13,7 +13,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { countries } from "./countries";
 
@@ -35,42 +35,44 @@ const CountryCodePicker = ({ visible, setShowCountryPicker }) => {
   return (
     <Modal transparent visible={visible} animationType="slide">
       <SafeAreaView style={styles.container}>
-        <View style={styles.overLay} />
-        <View style={styles.viewContainer}>
-          <TouchableOpacity
-            onPress={() => setShowCountryPicker(false)}
-            activeOpacity={1}
-            style={styles.backIconBtn}
+          <View style={styles.overLay} />
+
+          <View style={styles.viewContainer}>
+            <TouchableOpacity
+              onPress={() => setShowCountryPicker(false)}
+              activeOpacity={1}
+              style={styles.backIconBtn}
+            >
+              <Image style={styles.backIconStyle} source={images.back} />
+            </TouchableOpacity>
+            <Text style={styles.countryHeadingStyle}>Choose your country</Text>
+          </View>
+
+          <Animated.View
+            style={[
+              styles.textInputView,
+              {
+                width: inputWidthAnim,
+              },
+            ]}
           >
-            <Image style={styles.backIconStyle} source={images.back} />
-          </TouchableOpacity>
-          <Text style={styles.countryHeadingStyle}>Choose your country</Text>
-        </View>
+            <Image source={images.search} style={styles.searchIconStyle} />
+            <TextInput
+              placeholder="Search"
+              placeholderTextColor={Colors.text.black}
+              style={styles.input}
+              selectionColor={Colors.text.green}
+            />
+          </Animated.View>
 
-        <Animated.View
-          style={[
-            styles.textInputView,
-            {
-              width: inputWidthAnim,
-            },
-          ]}
-        >
-          <Image source={images.search} style={styles.searchIconStyle} />
-          <TextInput
-            placeholder="Search"
-            placeholderTextColor={Colors.text.black}
-            style={styles.input}
-            selectionColor={Colors.text.green}
+          <FlatList
+            ref={flatListRef}
+            style={styles.flatListStyle}
+            contentContainerStyle={styles.flatListContentStyle}
+            data={countries}
+            renderItem={renderCountryItem}
+            showsVerticalScrollIndicator={false}
           />
-        </Animated.View>
-
-        <FlatList
-          ref={flatListRef}
-          style={styles.flatListStyle}
-          contentContainerStyle={styles.flatListContentStyle}
-          data={countries}
-          renderItem={renderCountryItem}
-        />
       </SafeAreaView>
     </Modal>
   );
@@ -99,13 +101,17 @@ const styles = StyleSheet.create({
   backIconBtn: {
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: Colors.background.white,
+    borderRadius: Metrics.ratio(4),
+    width: Metrics.ratio(20),
+    height: Metrics.ratio(20),
   },
 
   backIconStyle: {
     resizeMode: "contain",
-    height: Metrics.ratio(20),
-    width: Metrics.ratio(20),
-    tintColor: Colors.text.white,
+    height: Metrics.ratio(15),
+    width: Metrics.ratio(15),
+    tintColor: Colors.text.black,
   },
 
   textInputView: {
@@ -115,7 +121,7 @@ const styles = StyleSheet.create({
     borderRadius: Metrics.ratio(8),
     paddingVertical: Metrics.ratio(10),
     paddingHorizontal: Metrics.ratio(10),
-    marginTop: Metrics.ratio(12),
+    marginTop: Metrics.ratio(20),
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: Colors.background.white,
@@ -124,7 +130,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
-    marginHorizontal: Metrics.screenWidth * 0.05
+    marginHorizontal: Metrics.screenWidth * 0.05,
   },
 
   searchIconStyle: {
@@ -152,6 +158,10 @@ const styles = StyleSheet.create({
   flatListStyle: {
     width: Metrics.screenWidth,
     marginTop: Metrics.ratio(20),
+    backgroundColor: Colors.background.white,
+    borderTopLeftRadius: Metrics.ratio(40),
+    borderTopRightRadius: Metrics.ratio(40),
+    paddingVertical: Metrics.ratio(20),
   },
 
   flatListContentStyle: {
