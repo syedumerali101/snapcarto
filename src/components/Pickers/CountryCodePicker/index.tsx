@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.text.green,
     width: Metrics.screenWidth * 0.9,
-    alignSelf: "center",
     borderRadius: Metrics.ratio(8),
     paddingVertical: Metrics.ratio(10),
     paddingHorizontal: Metrics.ratio(10),
@@ -125,6 +124,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
+    marginHorizontal: Metrics.screenWidth * 0.05
   },
 
   searchIconStyle: {

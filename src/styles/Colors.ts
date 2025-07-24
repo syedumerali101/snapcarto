@@ -5,7 +5,8 @@ const background = {
   black3: "rgba(0,0,0,0.6)",
   white: "#fff",
   green: "#02c38e",
-  green2: "rgba(0,50,0,0.6)"
+  green2: "rgba(0,50,0,0.6)",
+  green3: "#F0FFF0"
 };
 
 const text = {

@@ -133,6 +133,7 @@ const SignupScreen = ({ navigation }) => {
       <CountryCodePicker
         visible={showCountryPicker}
         setShowCountryPicker={setShowCountryPicker}
+        mode='list'
       />
     </BackgroundWrapper>
   );
